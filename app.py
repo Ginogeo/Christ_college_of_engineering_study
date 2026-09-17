@@ -3,17 +3,19 @@ import pandas as pd
 import joblib
 from pathlib import Path
 
-model_path = Path(__file__).parent / "student_pass_fail_model (1).pkl"
+model_path = Path(__file__).parent / "House_Price_Predictor.pkl"
 model = joblib.load(model_path)
 
-st.title("Student Pass Predictor")
-st.write("Enter the number of hours studied and Attendance to predict the result.")
+st.title("House Price Predictor")
+st.write("Enter the Area , No. of Bedrromms and the age to predict the price")
 
-study_hours = st.number_input("Study hours", min_value=0.0, step=0.5)
-attendance = st.number_input("Attendance", min_value=0, step=1)
+area = st.number_input("Area", min_value=0.0, step=0.5)
+bedrooms = st.number_input("Bedrooms", min_value=0, step=1)
+age = st.number_input("Age", min_value=0, step=1)
+
 
 if st.button("Predict"):
-	input_data = pd.DataFrame({"StudyHours": [study_hours],"Attendance":[attendance]})
+	input_data = pd.DataFrame({"Area":[area],"Bedrooms":[bedrooms],"Age":[age]})
 	prediction = model.predict(input_data)[0]
 	probability = model.predict_proba(input_data)[0][int(prediction)]
 
