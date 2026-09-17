@@ -19,7 +19,7 @@ if st.button("Predict"):
 	prediction = model.predict(input_data)[0]
 	
 	if prediction:
-		st.success(f"Price: {prediction}")
+		st.success(f"Price: {prediction:.0f}")
 	else:
 		st.error("Error Occured")
 
