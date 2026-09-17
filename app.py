@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 from pathlib import Path
 
-model_path = Path(__file__).parent / "House_Price_Predictor.pkl"
+model_path = Path(__file__).parent / "House_Price_Predictor(1).pkl"
 model = joblib.load(model_path)
 
 st.title("House Price Predictor")
