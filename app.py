@@ -17,10 +17,9 @@ age = st.number_input("Age", min_value=0, step=1)
 if st.button("Predict"):
 	input_data = pd.DataFrame({"Area":[area],"Bedrooms":[bedrooms],"Age":[age]})
 	prediction = model.predict(input_data)[0]
-	probability = model.predict_proba(input_data)[0][int(prediction)]
-
-	if prediction == 1:
-		st.success(f"Predicted result: Pass ({probability:.1%} confidence)")
+	
+	if prediction:
+		st.success(f"Predicted result: Pass ({prediction:.1%} confidence)")
 	else:
-		st.error(f"Predicted result: Fail ({probability:.1%} confidence)")
+		st.error("Error Occured")
 
