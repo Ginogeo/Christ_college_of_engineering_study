@@ -15,7 +15,7 @@ floors = st.number_input("No. of Floors", min_value=0, step=1)
 
 #[['Area_Sq_Ft',	'Total_Floors','Bedrooms']]
 if st.button("Predict"):
-	input_data = pd.DataFrame({"Area_Sq_Ft":[area],"Bedrooms":[bedrooms],"Total_Floors":[floors]})
+	input_data = pd.DataFrame({"Area_Sq_Ft":[area],"Total_Floors":[floors],"Bedrooms":[bedrooms]})
 	prediction = model.predict(input_data)[0]
 	
 	if prediction:
