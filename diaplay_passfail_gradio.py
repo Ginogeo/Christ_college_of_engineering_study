@@ -4,7 +4,7 @@ import pandas as pd
 import os
 
 # Load model
-model = joblib.load("/home/gino/Documents/MachineLearinig/student_pass_fail_model.pkl")
+model = joblib.load("student_pass_fail_model.pkl")
 
 
 def predict_result(study_hours):
