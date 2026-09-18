@@ -4,39 +4,32 @@ import pandas as pd
 import os
 
 # Load model
-model = joblib.load("student_pass_fail_model.pkl")
+model = joblib.load("kmeans_model.pkl")
 
 
-def predict_result(study_hours):
-
+def predict_cluster(annual_income, spending_score):
     input_data = pd.DataFrame({
-        "StudyHours": [study_hours]
+        "Income": [annual_income],
+        "Spending_Score": [spending_score]
     })
 
-    prediction = model.predict(input_data)[0]
-    probability = model.predict_proba(input_data)[0]
-
-    if prediction == 1:
-        result = "PASS"
-        confidence = probability[1] * 100
-    else:
-        result = "FAIL"
-        confidence = probability[0] * 100
-
-    return f"Student Result: {result}\nProbability: {confidence:.2f}%"
+    cluster = model.predict(input_data)[0]
+    
+    # Get distance to each cluster center
+    distances = model.transform(input_data)[0]
+    
+    return f"Customer Segment (Cluster): {cluster}\nDistances to centers: {distances.round(2)}"
 
 
 demo = gr.Interface(
-    fn=predict_result,
-    inputs=gr.Number(
-        label="Enter Study Hours",
-        minimum=0,
-        maximum=24,
-        value=5
-    ),
+    fn=predict_cluster,
+    inputs=[
+        gr.Number(label="Income", minimum=0, maximum=200, value=50),
+        gr.Number(label="Spending_Score", minimum=1, maximum=100, value=50)
+    ],
     outputs=gr.Textbox(label="Prediction"),
-    title="Student Result Prediction",
-    description="Predict Pass or Fail based on Study Hours."
+    title="Customer Segmentation (K-Means)",
+    description="Predict customer cluster based on Annual Income and Spending Score."
 )
 
 
