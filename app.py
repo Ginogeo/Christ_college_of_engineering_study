@@ -9,7 +9,7 @@ model = joblib.load(model_path)
 st.title("Price Prediction")
 st.write("Enter the details")
 
-ac_units= st.number_input("AC_Units", min_value=0.5, step=0.5, max_value=150)
+ac_units= st.number_input("AC_Units", min_value=0.5, step=0.5, max_value=150.0)
 # bedrooms = st.number_input("Bedrooms", min_value=0, step=1)
 # floors = st.number_input("No. of Floors", min_value=0, step=1)
 
