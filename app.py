@@ -3,18 +3,20 @@ import pandas as pd
 import joblib
 from pathlib import Path
 
-model_path = Path(__file__).parent / "poly_model_ac.pkl"
+model_path = Path(__file__).parent / "poly_model_ac_fan.pkl"
 model = joblib.load(model_path)
 
 st.title("Price Prediction")
 st.write("Enter the details")
 
 ac_units= st.number_input("AC_Units", min_value=1.0, step=0.5, max_value=150.0)
+fan_units= st.number_input("Fan_Units", min_value=1.0, step=0.5, max_value=150.0)
+
 # bedrooms = st.number_input("Bedrooms", min_value=0, step=1)
 # floors = st.number_input("No. of Floors", min_value=0, step=1)
 
 if st.button("Predict"):
-	input_data = pd.DataFrame({"AC_Units":[ac_units]})
+	input_data = pd.DataFrame({"AC_Units":[ac_units],"Fan_Units":[fan_units]})
 	prediction = model.predict(input_data)[0]
 	
 	if prediction:
