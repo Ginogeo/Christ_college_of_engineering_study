@@ -25,8 +25,9 @@ attendance = st.number_input(
 
 if st.button("Predict Performance"):
 
-    # Prepare input
-    input_data = np.array([[training_hours, attendance]])
+    # Prepare input - Model expects (batch, timesteps=2, features=2)
+    input_data = np.array([[training_hours, attendance]], dtype=np.float32)  # (1, 2)
+    input_data = np.repeat(input_data[:, np.newaxis, :], 2, axis=1)  # (1, 2, 2)
 
     # Prediction
     probability = model.predict(input_data, verbose=0)[0][0]
