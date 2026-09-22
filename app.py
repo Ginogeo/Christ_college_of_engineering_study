@@ -1,27 +1,46 @@
 import streamlit as st
-import pandas as pd
-import joblib
-from pathlib import Path
+import numpy as np
+import tensorflow as tf
 
-model_path = Path(__file__).parent / "poly_model_ac_fan_other.pkl"
-model = joblib.load(model_path)
+# Load trained model
+model = tf.keras.models.load_model("employee_performance_ann.keras")
 
-st.title("Price Prediction")
-st.write("Enter the details")
+st.title("Employee Performance Predictor")
 
-ac_units= st.number_input("AC_Units", min_value=1.0, step=0.5, max_value=150.0)
-fan_units= st.number_input("Fan_Units", min_value=1.0, step=0.5, max_value=150.0)
-other_units= st.number_input("Other_Units", min_value=1.0, step=0.5, max_value=150.0)
+st.write("Enter the employee details:")
 
-# bedrooms = st.number_input("Bedrooms", min_value=0, step=1)
-# floors = st.number_input("No. of Floors", min_value=0, step=1)
+training_hours = st.number_input(
+    "Training Hours",
+    min_value=0,
+    max_value=100,
+    value=5
+)
 
-if st.button("Predict"):
-	input_data = pd.DataFrame({"AC_Units":[ac_units],"Fan_Units":[fan_units],"Other_Units":[other_units]})
-	prediction = model.predict(input_data)[0]
-	
-	if prediction:
-		st.success(f"Price: {prediction:.0f}")
-	else:
-		st.error("Error Occured")
+attendance = st.number_input(
+    "Attendance (%)",
+    min_value=0,
+    max_value=100,
+    value=70
+)
 
+if st.button("Predict Performance"):
+
+    # Prepare input
+    input_data = np.array([[training_hours, attendance]])
+
+    # Prediction
+    probability = model.predict(input_data, verbose=0)[0][0]
+
+    if probability >= 0.5:
+        prediction = "Good"
+    else:
+        prediction = "Needs Improvement"
+
+    st.subheader("Prediction")
+    st.success(prediction)
+
+    st.write(
+        "Good Probability:",
+        round(float(probability) * 100, 2),
+        "%"
+    )

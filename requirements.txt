@@ -4,3 +4,4 @@ streamlit
 numpy
 joblib
 gradio
+tensorflow

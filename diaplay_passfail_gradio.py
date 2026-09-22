@@ -18,7 +18,7 @@ def predict_cluster(annual_income, spending_score):
     # Get distance to each cluster center
     distances = model.transform(input_data)[0]
     
-    return f"Customer Segment (Cluster): {cluster}\nDistances to centers: {distances.round(2)}"
+    return f"Customer Segment (Cluster): {cluster}"
 
 
 demo = gr.Interface(
