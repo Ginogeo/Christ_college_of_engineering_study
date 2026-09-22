@@ -5,4 +5,5 @@ streamlit
 numpy
 joblib
 gradio
-tensorflow==2.16.1  # or another specific version
+tensorflow # or another specific version
+pillow

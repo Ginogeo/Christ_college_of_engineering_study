@@ -1,40 +1,37 @@
 import gradio as gr
-import joblib
-import pandas as pd
-import os
+import tensorflow as tf
+import numpy as np
+from PIL import Image
 
-# Load model
-model = joblib.load("kmeans_model.pkl")
+# 1. Load the model
+model = tf.keras.models.load_model("animal_cnn.keras")
 
-
-def predict_cluster(annual_income, spending_score):
-    input_data = pd.DataFrame({
-        "Income": [annual_income],
-        "Spending_Score": [spending_score]
-    })
-
-    cluster = model.predict(input_data)[0]
+# 2. Define the prediction logic
+def predict(image):
+    if image is None:
+        return "Please upload an image."
+        
+    # Format image for the model
+    img = Image.fromarray(image).convert("RGB").resize((128, 128))
+    img_array = np.array(img) / 255.0
+    img_array = np.expand_dims(img_array, axis=0)
     
-    # Get distance to each cluster center
-    distances = model.transform(input_data)[0]
+    # Make prediction
+    prediction = model.predict(img_array)[0][0]
     
-    return f"Customer Segment (Cluster): {cluster}"
+    # Return result based on threshold
+    if prediction >= 0.5:
+        return f"Prediction: Dog 🐶 (Confidence: {prediction*100:.1f}%)"
+    else:
+        return f"Prediction: Cat 🐱 (Confidence: {(1-prediction)*100:.1f}%)"
 
-
-demo = gr.Interface(
-    fn=predict_cluster,
-    inputs=[
-        gr.Number(label="Income", minimum=0, maximum=200, value=50),
-        gr.Number(label="Spending_Score", minimum=1, maximum=100, value=50)
-    ],
-    outputs=gr.Textbox(label="Prediction"),
-    title="Customer Segmentation (K-Means)",
-    description="Predict customer cluster based on Annual Income and Spending Score."
+# 3. Create and launch the interface
+app = gr.Interface(
+    fn=predict,
+    inputs=gr.Image(),
+    outputs="text",
+    title="Simple Cat vs Dog Classifier"
 )
 
-
 if __name__ == "__main__":
-    demo.launch(
-        server_name="0.0.0.0",
-        server_port=int(os.environ.get("PORT", 7860))
-    )
+    app.launch()
