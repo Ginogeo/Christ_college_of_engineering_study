@@ -20,7 +20,7 @@ attendance = st.number_input(
     "Vibration",
     min_value=0,
     max_value=100,
-    value=70
+    value=70.0
 )
 
 if st.button("Predict Performance"):
