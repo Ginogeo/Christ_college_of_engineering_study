@@ -9,18 +9,15 @@ st.title("Employee Performance Predictor")
 
 st.write("Enter the employee details:")
 
-training_hours = st.number_input(
-    "Temperature",
-    min_value=0,
-    max_value=100,
-    value=5
-)
+training_hours = float(st.text_input(
+    "Temperature", "1"
+))
 
 attendance = st.number_input(
     "Vibration",
     min_value=0,
     max_value=100,
-    value=70.0
+    value=70
 )
 
 if st.button("Predict Performance"):
