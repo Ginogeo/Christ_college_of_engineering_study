@@ -19,7 +19,7 @@ t2_vib = col4.number_input("Previous Timestamp 2 - Vibration", value=3.6)
 
 if st.button("Predict Next Temperature"):
     # Load the model
-    model = load_model("machine_temperature_rnn.keras")
+    model = load_model("machine_temperature_rnn2.keras")
 
     # Prepare sequence: shape (1, 2, 2) -> (samples, time_steps, features)
     input_seq = np.array([[[t1_temp, t1_vib], [t2_temp, t2_vib]]])
