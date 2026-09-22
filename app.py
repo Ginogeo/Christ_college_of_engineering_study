@@ -5,20 +5,16 @@ import tensorflow as tf
 # Load trained model
 model = tf.keras.models.load_model("machine_temperature_rnn.keras")
 
-st.title("Employee Performance Predictor")
+st.title(" Predictor")
 
-st.write("Enter the employee details:")
 
 training_hours = float(st.text_input(
-    "Temperature", "1"
+    "Temperature"
 ))
 
-attendance = st.number_input(
-    "Vibration",
-    min_value=0,
-    max_value=100,
-    value=70
-)
+attendance = float(st.text_input(
+    "Vibration"
+))
 
 if st.button("Predict Performance"):
 
@@ -39,6 +35,6 @@ if st.button("Predict Performance"):
 
     st.write(
         "Probability:",
-        round(float(probability) * 100, 2),
+        round(float(probability)),
         "%"
     )
