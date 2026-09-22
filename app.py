@@ -32,16 +32,16 @@ if st.button("Predict Performance"):
     # Prediction
     probability = model.predict(input_data, verbose=0)[0][0]
 
-    if probability >= 0.5:
-        prediction = "Good"
-    else:
-        prediction = "Needs Improvement"
+    # if probability >= 0.5:
+    #     prediction = "Good"
+    # else:
+    #     prediction = "Needs Improvement"
 
-    st.subheader("Prediction")
-    st.success(prediction)
+    # st.subheader("Prediction")
+    # st.success(prediction)
 
     st.write(
-        "Good Probability:",
+        "Probability:",
         round(float(probability) * 100, 2),
         "%"
     )
