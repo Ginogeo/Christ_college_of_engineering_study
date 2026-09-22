@@ -12,7 +12,7 @@ temperature = st.number_input(
     label="Temperature",
     min_value=0.0,
     max_value=100.0,
-    value=10.0,
+    value=60.0,
     step=0.1,
     format="%.2f"
 )
@@ -21,7 +21,7 @@ vibration = st.number_input(
     label="Vibration",
     min_value=0.0,
     max_value=100.0,
-    value=10.0,
+    value=2.1,
     step=0.1,
     format="%.2f"
 )
