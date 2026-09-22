@@ -8,13 +8,24 @@ model = tf.keras.models.load_model("machine_temperature_rnn.keras")
 st.title(" Predictor")
 
 
-training_hours = float(st.text_input(
-    "Temperature"
-))
 
-attendance = float(st.text_input(
-    "Vibration"
-))
+training_hours= st.number_input(
+    label="Temperature",
+    min_value=0.0,
+    max_value=100.0,
+    value=10.0,
+    step=0.1,
+    format="%.2f"  # Displays exactly 2 decimal places
+)
+
+attendance = st.number_input(
+    label="Vibration",
+    min_value=0.0,
+    max_value=100.0,
+    value=10.0,
+    step=0.1,
+    format="%.2f"  # Displays exactly 2 decimal places
+)
 
 if st.button("Predict Performance"):
 
@@ -33,8 +44,4 @@ if st.button("Predict Performance"):
     # st.subheader("Prediction")
     # st.success(prediction)
 
-    st.write(
-        "Probability:",
-        round(float(probability)),
-        "%"
-    )
+st.write(f"Probability: {float(probability):.2f}")
