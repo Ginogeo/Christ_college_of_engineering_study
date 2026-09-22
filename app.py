@@ -4,7 +4,7 @@ import tensorflow as tf
 
 st.title("Machine Temperature Predictor")
 
-model = tf.keras.models.load_model('machine_temperature_rnn.keras')
+model = tf.keras.models.load_model('machine_temperature_rnn2.keras')
 
 t1_temp = st.number_input("Previous Timestamp 1 - Temperature", value=81.0)
 t1_vib = st.number_input("Previous Timestamp 1 - Vibration", value=3.5)
