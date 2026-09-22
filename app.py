@@ -3,21 +3,21 @@ import numpy as np
 import tensorflow as tf
 
 # Load trained model
-model = tf.keras.models.load_model("employee_performance_ann.keras")
+model = tf.keras.models.load_model("machine_temperature_rnn.keras")
 
 st.title("Employee Performance Predictor")
 
 st.write("Enter the employee details:")
 
 training_hours = st.number_input(
-    "Training Hours",
+    "Temperature",
     min_value=0,
     max_value=100,
     value=5
 )
 
 attendance = st.number_input(
-    "Attendance (%)",
+    "Vibration",
     min_value=0,
     max_value=100,
     value=70
