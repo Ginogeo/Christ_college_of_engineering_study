@@ -28,5 +28,5 @@ if st.button("Predict Next Temperature"):
     prediction = model.predict(input_seq)
 
     # Display Result
-    st.success(f"Predicted Next Machine Temperature:\n{prediction[0][0]:.2f} °C")
+    st.success(f"Predicted Next Machine Temperature:\n{prediction[0][0]:.2f * 100} °C")
 
